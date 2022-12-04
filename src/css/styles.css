@@ -29,3 +29,6 @@ body {
   display: flex;
   gap: 10px;
 }
+.country-span {
+  font-weight: bold;
+}

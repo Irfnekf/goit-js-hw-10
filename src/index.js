@@ -42,7 +42,7 @@ function renderList(countries) {
   elem = countries.reduce((acc, { name: { official }, flags: { svg } }) => {
     return (
       acc +
-      `<li class = "country-items"><img src="${svg}" alt="flags" width="40" /><span class="country-span">${official}</span></li>`
+      `<li class = "country-items"><img src="${svg}" alt="flags" width="40" /><span>${official}</span></li>`
     );
   }, '');
 }
@@ -56,11 +56,13 @@ function renderDiv(countries) {
         acc +
         `<li class = "country-items">
     <img src="${svg}" width = 40 alt="" />
-    <span>${official}</span>
+    <span class="country-span">${official}</span>
   </li>
-  <div>Capital: ${capital}</div>
-  <div>Population: ${population}</div>
-  <div>Languages: ${Object.values(languages).join(', ')}</div>`
+  <div><span class="country-span">Capital:</span> ${capital}</div>
+  <div><span class="country-span">Population:</span> ${population}</div>
+  <div><span class="country-span">Languages:</span> ${Object.values(
+    languages
+  ).join(', ')}</div>`
       );
     },
     ''
