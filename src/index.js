@@ -22,20 +22,15 @@ function onInput() {
   fetchCountries(refs.input.value.trim())
     .then(createCounries)
     .catch(error => {
-      console.log(error);
       Notiflix.Notify.failure(`Oops, there is no country with that name`);
-      refs.ul.innerHTML = '';
     });
 }
 function createCounries(countries) {
   if (countries.length >= 2 && countries.length <= 10) {
     renderList(countries);
-    refs.div = '';
   } else if (countries.length === 1) {
     renderDiv(countries);
-    refs.div.innerHTML = '';
   } else if (countries > 10) {
-    refs.ul.innerHTML = '';
     Notiflix.Notify.info(
       'Too many matches found. Please enter a more specific name.'
     );
@@ -44,20 +39,30 @@ function createCounries(countries) {
 }
 
 function renderList(countries) {
-  elem = countries
-    .map(({ name: { official }, flags: { svg } }) => {
-      return `<li class = "country-items"><img src="${svg}" alt="flags" width="40" /><span class="country-span">${official}</span></li>`;
-    })
-    .join('');
+  elem = countries.reduce((acc, { name: { official }, flags: { svg } }) => {
+    return (
+      acc +
+      `<li class = "country-items"><img src="${svg}" alt="flags" width="40" /><span class="country-span">${official}</span></li>`
+    );
+  }, '');
 }
 function renderDiv(countries) {
-  elem = countries.map(country => {
-    return `<li class = "country-items">
-    <img src="${country.flags.svg}" width = 40 alt="" />
-    <span>${country.name.official}</span>
+  elem = countries.reduce(
+    (
+      acc,
+      { name: { official }, flags: { svg }, capital, population, languages }
+    ) => {
+      return (
+        acc +
+        `<li class = "country-items">
+    <img src="${svg}" width = 40 alt="" />
+    <span>${official}</span>
   </li>
-  <div>Capital: ${country.capital}</div>
-  <div>Population: ${country.population}</div>
-  <div>Languages: ${Object.values(country.languages).join(`, `)}</div>`;
-  });
+  <div>Capital: ${capital}</div>
+  <div>Population: ${population}</div>
+  <div>Languages: ${Object.values(languages).join(', ')}</div>`
+      );
+    },
+    ''
+  );
 }
