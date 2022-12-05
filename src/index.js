@@ -31,12 +31,12 @@ function createCounries(countries) {
   if (countries.length > 2 || countries.length <= 10) {
     renderList(countries);
     refs.countrylist.innerHTML = '';
-    refs.countryinfo.innerHTML = 'elem';
+    refs.countryinfo.innerHTML = elem;
   }
   if (countries.length === 1) {
     renderDiv(countries);
     refs.countrylist.innerHTML = '';
-    refs.countryinfo.innerHTML = 'elem';
+    refs.countryinfo.innerHTML = elem;
   }
   if (countries.length > 10) {
     Notiflix.Notify.info(
