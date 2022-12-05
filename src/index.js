@@ -17,6 +17,8 @@ refs.input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 function onInput() {
   if (!refs.input.value.trim()) {
     refs.ul.innerHTML = '';
+    refs.div.innerHTML = '';
+
     return;
   }
   fetchCountries(refs.input.value.trim())
@@ -26,16 +28,23 @@ function onInput() {
     });
 }
 function createCounries(countries) {
-  if (countries.length >= 2 && countries.length <= 10) {
+  if (countries.length >= 2 || countries.length <= 10) {
     renderList(countries);
-  } else if (countries.length === 1) {
+    refs.ul.innerHTML = '';
+    refs.div.innerHTML = 'elem';
+  }
+  if (countries.length === 1) {
     renderDiv(countries);
-  } else if (countries > 10) {
+    refs.ul.innerHTML = '';
+    refs.div.innerHTML = 'elem';
+  }
+  if (countries.length > 10) {
     Notiflix.Notify.info(
       'Too many matches found. Please enter a more specific name.'
     );
+    refs.ul.innerHTML = '';
+    refs.div.innerHTML = '';
   }
-  refs.ul.innerHTML = elem;
 }
 
 function renderList(countries) {
