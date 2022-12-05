@@ -10,6 +10,7 @@ const refs = {
   countrylist: document.querySelector('.country-list'),
   countryinfo: document.querySelector('.country-info'),
 };
+
 let elem = '';
 
 refs.input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
@@ -25,6 +26,8 @@ function onInput() {
     .then(createCounries)
     .catch(error => {
       Notiflix.Notify.failure(`Oops, there is no country with that name`);
+      refs.countrylist.innerHTML = '';
+      refs.countryinfo.innerHTML = '';
     });
 }
 function createCounries(countries) {
