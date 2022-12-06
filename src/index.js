@@ -66,10 +66,10 @@ function renderDiv(countries) {
     ) => {
       return (
         acc +
-        `<li class = "country-items">
+        `<div class = "country-items">
     <img src="${svg}" width = 40 alt="" />
     <span class="country-span">${official}</span>
-  </li>
+  </div>
   <div><span class="country-span">Capital:</span> ${capital}</div>
   <div><span class="country-span">Population:</span> ${population}</div>
   <div><span class="country-span">Languages:</span> ${Object.values(
