@@ -17,8 +17,7 @@ refs.input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 
 function onInput() {
   if (!refs.input.value.trim()) {
-    refs.countrylist.innerHTML = '';
-    refs.countryinfo.innerHTML = '';
+    reset();
 
     return;
   }
@@ -26,27 +25,23 @@ function onInput() {
     .then(createCounries)
     .catch(error => {
       Notiflix.Notify.failure(`Oops, there is no country with that name`);
-      refs.countrylist.innerHTML = '';
-      refs.countryinfo.innerHTML = '';
+      reset();
     });
 }
 function createCounries(countries) {
   if (countries.length > 2 || countries.length <= 10) {
     renderList(countries);
-    refs.countrylist.innerHTML = '';
-    refs.countryinfo.innerHTML = elem;
+    renderReset();
   }
   if (countries.length === 1) {
     renderDiv(countries);
-    refs.countrylist.innerHTML = '';
-    refs.countryinfo.innerHTML = elem;
+    renderReset();
   }
   if (countries.length > 10) {
     Notiflix.Notify.info(
       'Too many matches found. Please enter a more specific name.'
     );
-    refs.countrylist.innerHTML = '';
-    refs.countryinfo.innerHTML = '';
+    reset();
   }
 }
 
@@ -79,4 +74,12 @@ function renderDiv(countries) {
     },
     ''
   );
+}
+function reset() {
+  refs.countrylist.innerHTML = '';
+  refs.countryinfo.innerHTML = '';
+}
+function renderReset() {
+  refs.countrylist.innerHTML = '';
+  refs.countryinfo.innerHTML = elem;
 }

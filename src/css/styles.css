@@ -22,7 +22,7 @@ body {
 .country-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   list-style: none;
 }
 .country-items {
