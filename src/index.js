@@ -15,18 +15,25 @@ let elem = '';
 
 refs.input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 
-function onInput() {
+async function onInput() {
   if (!refs.input.value.trim()) {
     reset();
 
     return;
   }
-  fetchCountries(refs.input.value.trim())
-    .then(createCounries)
-    .catch(error => {
-      Notiflix.Notify.failure(`Oops, there is no country with that name`);
-      reset();
-    });
+  try {
+    const callbackFn = await fetchCountries(refs.input.value.trim());
+    const renderList = await createCounries();
+  } catch (error) {
+    Notiflix.Notify.failure(`Oops, there is no country with that name`);
+    reset();
+  }
+
+  // .then(createCounries)
+  // .catch(error => {
+  //   Notiflix.Notify.failure(`Oops, there is no country with that name`);
+  //   reset();
+  // });
 }
 function createCounries(countries) {
   if (countries.length > 2 || countries.length <= 10) {
