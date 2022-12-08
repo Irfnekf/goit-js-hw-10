@@ -23,7 +23,7 @@ async function onInput() {
   }
   try {
     const callbackFn = await fetchCountries(refs.input.value.trim());
-    const renderList = await createCounries();
+    createCounries;
   } catch (error) {
     Notiflix.Notify.failure(`Oops, there is no country with that name`);
     reset();
