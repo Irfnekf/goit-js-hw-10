@@ -21,19 +21,12 @@ async function onInput() {
 
     return;
   }
-  try {
-    const callbackFn = await fetchCountries(refs.input.value.trim());
-    createCounries();
-  } catch (error) {
-    Notiflix.Notify.failure(`Oops, there is no country with that name`);
-    reset();
-  }
-
-  // .then(createCounries)
-  // .catch(error => {
-  //   Notiflix.Notify.failure(`Oops, there is no country with that name`);
-  //   reset();
-  // });
+  fetchCountries(refs.input.value.trim())
+    .then(createCounries)
+    .catch(error => {
+      Notiflix.Notify.failure(`Oops, there is no country with that name`);
+      reset();
+    });
 }
 function createCounries(countries) {
   if (countries.length > 2 || countries.length <= 10) {
